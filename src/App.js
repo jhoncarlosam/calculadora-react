@@ -1,9 +1,27 @@
 import "./App.css";
-import Button from "./components/Button";
-import Pantalla from "./components/Pantalla";
-import freeCodeCampLogo from "./imgs/freecodecamp-logo.jpg";
+import Button from './components/Button';
+import Pantalla from './components/Pantalla';
+import ButtonClear from './components/ButtonClear';
+import freeCodeCampLogo from './imgs/freecodecamp-logo.jpg';
+import { useState } from 'react';
+import { evaluate } from 'mathjs';
 
 function App() {
+
+  const [input, setInput] = useState('');
+
+  const addInput = val => {
+    setInput(input + val);
+  }
+
+  const calculateResult = () => {
+    if (input) {
+      setInput(evaluate(input));
+    } else {
+      alert("Por favor ingrese valores para realizar los cálculos.")
+    }
+  }
+
   return (
     <div className="App">
       <div className="freecodecamp-contenedor">
@@ -14,32 +32,34 @@ function App() {
         />
       </div>
       <div className="contenedor-calculadora">
-        <Pantalla />
+        <Pantalla input={input}/>
         <div className="fila">
-          <Button>1</Button>
-          <Button>2</Button>
-          <Button>3</Button>
-          <Button>+</Button>
+          <Button handleClic={addInput}>1</Button>
+          <Button handleClic={addInput}>2</Button>
+          <Button handleClic={addInput}>3</Button>
+          <Button handleClic={addInput}>+</Button>
         </div>
         <div className="fila">
-          <Button>4</Button>
-          <Button>5</Button>
-          <Button>6</Button>
-          <Button>-</Button>
+          <Button handleClic={addInput}>4</Button>
+          <Button handleClic={addInput}>5</Button>
+          <Button handleClic={addInput}>6</Button>
+          <Button handleClic={addInput}>-</Button>
         </div>
         <div className="fila">
-          <Button>7</Button>
-          <Button>8</Button>
-          <Button>9</Button>
-          <Button>*</Button>
+          <Button handleClic={addInput}>7</Button>
+          <Button handleClic={addInput}>8</Button>
+          <Button handleClic={addInput}>9</Button>
+          <Button handleClic={addInput}>*</Button>
         </div>
         <div className="fila">
-          <Button>=</Button>
-          <Button>0</Button>
-          <Button>.</Button>
-          <Button>/</Button>
+          <Button handleClic={calculateResult}>=</Button>
+          <Button handleClic={addInput}>0</Button>
+          <Button handleClic={addInput}>.</Button>
+          <Button handleClic={addInput}>/</Button>
         </div>
-        <div></div>
+        <div className="fila">
+          <ButtonClear handleClear={() => setInput('')}>Clear</ButtonClear>
+        </div>
       </div>
     </div>
   );
